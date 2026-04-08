@@ -38,18 +38,34 @@ function App() {
 
 
   const handleDirection = (direction) => {
-    if (direction === "right" && position+1<101) {
+    if(direction==="right" && position===100){
+      return;
+    }
+    
+    else if (direction === "right" && position+1<101) {
       setPosition((prev) =>prev+1);
     } 
+
+    else if(direction === "down" && position>96){
+      return;
+    }
+
     else if(direction==="down" && position+4<101){
       setPosition((prev) =>prev+4);
     } 
+
+    else if(direction==="up" && position<5){
+      return;
+    }
+
     else if(direction==="up" && position-4>0){
       setPosition((prev) =>prev-4);
     }
+
     else if(direction ==="left" && position-1>0){
       setPosition((prev) =>prev-1);
     }
+
     else{
       setPosition(1);
     }
