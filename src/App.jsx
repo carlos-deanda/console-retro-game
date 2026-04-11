@@ -5,6 +5,8 @@ import RightControl from './components/RightControl';
 import GameScreen from './components/GameScreen';
 import Screen from './components/Screen';
 import useFetch from './hooks/useFetch';
+import PokemonDetails from './components/PokemonDetails';
+
 
 
 
@@ -17,11 +19,44 @@ function App() {
   // sanitizer data
 
   const [pokemones, setPokemones] = useState([]);
-  const getListPokemones = () => {
+  
+  {/* const getListPokemones = () => {
     const list = data?.results?.filter((p) => p.url);
     const plist = list?.map((l) => fetch(l.url).then((res) => res.json()));
     Promise.all(plist).then((values) => {
       setPokemones(values);
+    });
+  };
+
+  */}
+
+  function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+  }
+  
+ const getListPokemones = () => {
+    const list = data?.results?.filter((p) => p.url);
+    const plist = list?.map((l) => fetch(l.url).then((res) => res.json()));
+
+    Promise.all(plist).then((values) => {
+      const saniData = values?.map((e) => {
+        return {
+          name: e.name,
+          id: e.id,
+          types: e.types,
+          moves: e.moves.map((e) => {
+            return {
+              ...e,
+              attack: getRandomInt(20, 98),
+            };
+          }),
+          sprites: e.sprites,
+        };
+      });
+
+      setPokemones(saniData);
     });
   };
 
@@ -93,16 +128,38 @@ function App() {
     computerSelection()
   }
 
+  
+  const [hoverPokemon, setHoverPokemon] = useState([]);
+
+  useEffect(() => {
+    if (pokemones.length > 0) {
+      const current = pokemones.filter((p) => p.id === position);
+      setHoverPokemon(current);
+    }
+  }, [position, pokemones]); 
+  
+
   console.log("my",myPokeSelection.length, myPokeSelection)
   console.log("pc",pcPokeSelection.length, pcPokeSelection)
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <LeftControl handleDirection={handleDirection}/>
-      {myPokeSelection.length && pcPokeSelection.length ? ( <GameScreen myPokeSelection={myPokeSelection} pcPokeSelection={pcPokeSelection}/>) : (<Screen pokemones={pokemones} position={position}/>)}
-      <RightControl handleSelection={handleSelection}/>
+    <div>
+      <div className="flex justify-center items-center h-screen">
+        <LeftControl handleDirection={handleDirection}/>
+        {myPokeSelection.length && pcPokeSelection.length ? ( <GameScreen myPokeSelection={myPokeSelection} pcPokeSelection={pcPokeSelection}/>) : (<Screen pokemones={pokemones} position={position}/>)}
+        <RightControl handleSelection={handleSelection}/>
+      </div>
+      
+      {myPokeSelection.length === 0 && (
+        <div>
+          <PokemonDetails myPokeSelection={hoverPokemon}/>
+        </div>
+      )}
     </div>
+
   );
 }
 
 export default App;
+
+//back_default y front_default
