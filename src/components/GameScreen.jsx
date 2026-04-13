@@ -10,24 +10,36 @@ function GameScreen({myPokeSelection, pcPokeSelection}) {
     return 'bg-red-500';
   };
 
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+}
+
 const myAttack = (damage) => {
-    setPcHP(pcHP => pcHP - damage/3);
+    if(pcHP - damage/2 < 0){
+        setPcHP(pcHP => 0);
+        return;
+    }
+    setPcHP(pcHP => pcHP - damage/2);
 };
 
 const pcAttack = (damage) => {
-    setMyHP(myHP => myHP - damage/3);
+    if(myHP- damage/2 < 0){
+        setMyHP(myHP => 0);
+        return;
+    }
+    setMyHP(myHP => myHP - damage/2);
 };
-
-function getRandomInt(min, max) {
-const minCeiled = Math.ceil(min);
-const maxFloored = Math.floor(max);
-return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-}
 
 const handleTurn= (myDamage) => {
     myAttack(myDamage);
-    const pcMove = pcPokeSelection[0].moves[getRandomInt(0,4)];  //tengo que hacerlo con getRandomInt
-    pcAttack(pcMove.attack);
+    setTimeout(() => {
+        const pcMove = pcPokeSelection[0].moves[getRandomInt(0,4)]; 
+        pcAttack(pcMove.attack);
+
+    }, 1500);
+    
 };
   
  return (
