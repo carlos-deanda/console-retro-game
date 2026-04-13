@@ -13,7 +13,7 @@ function GameScreen({myPokeSelection, pcPokeSelection}) {
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 };
 
 const myAttack = (damage) => {
@@ -33,7 +33,7 @@ const pcAttack = (damage) => {
 };
 
 const GameWon = () => (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-50 flex flex-col items-center justify-center">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-[110] flex flex-col items-center justify-center">
         <h1 className="font-black italic text-green-600 text-xl uppercase tracking-tighter">
             You Won!
         </h1>
@@ -42,7 +42,7 @@ const GameWon = () => (
 );
 
 const GameLost = () => (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-black border-4 border-white p-4 shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] z-50 flex flex-col items-center justify-center">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-black border-4 border-white p-4 shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] z-[110] flex flex-col items-center justify-center">
         <h1 className="font-black italic text-red-500 text-xl uppercase tracking-tighter">
             Game Over
         </h1>
@@ -68,15 +68,14 @@ const handleTurn = (myDamage) => {
         pcAttack(pcMove.attack);
 
     }, 500);
-
-    
 };
   
  return (
     <>
-    <div className="w-[450px] h-[200px] border-4 border-solid border-black relative overflow-hidden bg-white">
+    {/* Añadí z-[100] aquí para que la pantalla completa mande sobre los Joy-Cons */}
+    <div className="w-[450px] h-[200px] border-4 border-solid border-black relative overflow-hidden bg-white z-[100]">
         
-        <div className="absolute top-2 left-4 h-12 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
+        <div className="absolute top-2 left-4 h-9 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
             <div className="flex justify-between items-start leading-none">
                 <p className="text-[8px] font-black uppercase">{pcPokeSelection[0]?.name}</p>
                 <span className="text-[12px] font-bold font-mono">{Math.round(pcHP)}</span>
@@ -90,7 +89,7 @@ const handleTurn = (myDamage) => {
             </div>
         </div>
 
-       <div className="absolute bottom-14 right-4 h-12 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
+       <div className="absolute bottom-18 right-4 h-9 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
             <div className="flex justify-between items-start leading-none w-full">
                 <span className="text-[12px] font-bold font-mono text-left">{Math.round(myHP)}</span>
                 <p className="text-[8px] font-black uppercase text-right">{myPokeSelection[0]?.name}</p>
@@ -108,11 +107,11 @@ const handleTurn = (myDamage) => {
             <div className="flex items-center justify-around w-full px-10">
                 
                 {myPokeSelection?.map((pokemon, index) => (
-                    <div key={index} className="flex flex-col items-center mt-15">
+                    <div key={index} className="flex flex-col items-center mt-10">
                         <img
                             src={pokemon?.sprites?.back_default}
                             alt={pokemon.name}
-                            className="w-24 h-24 object-contain"
+                            className="w-20 h-20 object-contain"
                         />
                     </div>
                 ))}
@@ -120,31 +119,36 @@ const handleTurn = (myDamage) => {
                 <p className="font-black italic text-lg opacity-20">VS</p>
                 
                 {pcPokeSelection?.map((pokemon, index) => (
-                    <div key={index} className="flex flex-col items-center mb-15">
+                    <div key={index} className="flex flex-col items-center mb-14">
                         <img
                             src={pokemon?.sprites?.front_default}
                             alt={pokemon.name}
-                            className="w-24 h-24 object-contain"
+                            className="w-20 h-20 object-contain"
                         />
                     </div>
                 ))}
             </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full bg-white border-t-2 border-black h-12 flex grid grid-cols-2 overflow-y-auto">
-            {myPokeSelection[0]?.moves?.slice(0, 4).map((m,i) => (
+        <div className="absolute bottom-0 left-0 w-full bg-gray-100 border-t-2 border-black h-16 grid grid-cols-2 gap-1 p-1">
+            {myPokeSelection[0]?.moves?.slice(0, 4).map((m, i) => (
                 <button 
                     key={i} 
-                    className="flex flex-col justify-center px-4 border-r border-b border-gray-200 hover:bg-gray-100 transition-colors"
+                    disabled={myHP === 0 || pcHP === 0}
+                    className="flex flex-col justify-center px-3 bg-white border-2 border-black rounded-sm hover:bg-gray-200 active:scale-95 transition-all shadow-[1px_1px_0_0_rgba(0,0,0,1)] disabled:opacity-50 disabled:grayscale"
                     onClick={() => handleTurn(m.attack)}
                 >
-                    <span className="text-[9px] font-mono font-black uppercase truncate text-left">
+                    <span className="text-[8px] font-mono font-black uppercase truncate text-left leading-tight">
                         {m.move.name}
                     </span>
-                    <span className="text-[7px] font-bold text-blue-600 text-left">
-                        ATK: {m.attack}
-                    </span>
-                    
+                    <div className="flex justify-between items-center w-full">
+                        <span className="text-[6px] font-bold text-blue-600 uppercase">
+                            ATK
+                        </span>
+                        <span className="text-[7px] font-black">
+                            {m.attack}
+                        </span>
+                    </div>
                 </button>
             ))}
         </div>

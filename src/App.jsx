@@ -7,14 +7,9 @@ import Screen from './components/Screen';
 import useFetch from './hooks/useFetch';
 import PokemonDetails from './components/PokemonDetails';
 
-
-
-
 function App() {
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=0';
   const { data, loading, error } = useFetch(url);
-
-
 
   // sanitizer data
 
@@ -126,7 +121,7 @@ function App() {
   const handleSelection = () => {
     if (myPokeSelection.length > 0) return;
     console.log("elementos", pokemones)
-    const selectPokemon = pokemones.filter((p) => p.id ===position)
+    const selectPokemon = pokemones.filter((p) => p.id === position)
     setMyPokeSelection(selectPokemon)
     computerSelection()
   }
@@ -140,6 +135,11 @@ function App() {
       setHoverPokemon(current);
     }
   }, [position, pokemones]); 
+
+  const goHome = () => {
+    setMyPokeSelection([]);
+    setPcPokeSelection([]); 
+  }
   
 
   console.log("my",myPokeSelection.length, myPokeSelection)
@@ -150,7 +150,7 @@ function App() {
       <div className="flex justify-center items-center h-screen">
         <LeftControl handleDirection={handleDirection}/>
         {myPokeSelection.length && pcPokeSelection.length ? ( <GameScreen myPokeSelection={myPokeSelection} pcPokeSelection={pcPokeSelection}/>) : (<Screen pokemones={pokemones} position={position}/>)}
-        <RightControl handleSelection={handleSelection}/>
+        <RightControl handleSelection={handleSelection} goHome={goHome}/>
       </div>
       
       {myPokeSelection.length === 0 && (
