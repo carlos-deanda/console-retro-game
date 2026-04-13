@@ -73,6 +73,8 @@ function App() {
 
 
   const handleDirection = (direction) => {
+    if (myPokeSelection.length > 0) return;
+    
     if(direction==="right" && position===100){
       return;
     }
@@ -122,6 +124,7 @@ function App() {
 
 
   const handleSelection = () => {
+    if (myPokeSelection.length > 0) return;
     console.log("elementos", pokemones)
     const selectPokemon = pokemones.filter((p) => p.id ===position)
     setMyPokeSelection(selectPokemon)
