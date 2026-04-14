@@ -73,7 +73,7 @@ const handleTurn = (myDamage) => {
  return (
     <>
     {/* Añadí z-[100] aquí para que la pantalla completa mande sobre los Joy-Cons */}
-    <div className="w-[450px] h-[200px] border-4 border-solid border-black relative overflow-hidden bg-white z-[100]">
+    <div className="w-[450px] h-[200px] -mt-80 border-y-4 border-solid relative overflow-hidden bg-white z-[100]">
         
         <div className="absolute top-2 left-4 h-9 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
             <div className="flex justify-between items-start leading-none">

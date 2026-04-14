@@ -139,6 +139,7 @@ function App() {
   const goHome = () => {
     setMyPokeSelection([]);
     setPcPokeSelection([]); 
+    setPosition(1);
   }
   
 

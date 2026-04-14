@@ -2,7 +2,7 @@ import React from 'react'
 
 function LeftControl({handleDirection}) {
   return (
-    <div className="w-[80px] h-[200px] border-4 border-solid flex flex-col items-center rounded-tl-[40px]  text-[10px] rounded-bl-[40px] bg-[#00C3E3]">
+    <div className="w-[80px] h-[200px] -mt-80 border-4 border-solid flex flex-col items-center rounded-tl-[40px]  text-[10px] rounded-bl-[40px] bg-[#00C3E3]">
       <button className="text-[30px] translate-x-6 -mt-2">-</button>
       <button className="rounded-full border-2 border-[#333333] -mt-3 bg-[#1A1A1A] flex items-center justify-center w-8 h-8"></button>
       <div className="grid grid-cols-3 grid-rows-3   mt-4 w-fit mx-auto">

@@ -2,7 +2,7 @@ import React from 'react'
 
 function RightControl({handleSelection, goHome}) {
   return (
-    <div className="w-[80px] h-[200px] border-4 border-solid flex flex-col items-center rounded-tr-[40px] text-[10px] rounded-br-[40px] bg-[#FF4554]">
+    <div className="w-[80px] h-[200px] -mt-80 border-4 border-solid flex flex-col items-center rounded-tr-[40px] text-[10px] rounded-br-[40px] bg-[#FF4554]">
       <button className="text-[30px] -translate-x-6 -mt-2">+</button>
       <div className="grid grid-cols-3 grid-rows-3  -mt-2 w-fit mx-auto">
         <button className="col-start-1 row-start-2 rounded-full border-2  border-black bg-[#1A1A1A] text-white flex items-center justify-center w-4.5 h-4.5 ">Y</button>

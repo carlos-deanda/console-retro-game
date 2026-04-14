@@ -2,8 +2,8 @@ import React from 'react'
 
 function PokemonDetails({ myPokeSelection }) {
   return (
-    <div className="flex justify-center w-full relative">
-      <div className="absolute top-[-35px] w-[450px] min-h-[350px] bg-white border-4 border-black border-t-0 rounded-b-[2.5rem] shadow-xl z-[-1] pb-6">
+    <div className="flex justify-center w-full relative -mt-105 ">
+      <div className="absolute top-[-35px] w-[450px] min-h-[350px] bg-white border-4 border-black border-t-0 rounded-b-[2.5rem] shadow-xl pb-6">
         
         <div className="h-10"></div> 
 
