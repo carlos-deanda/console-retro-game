@@ -17,23 +17,23 @@ function getRandomInt(min, max) {
 };
 
 const myAttack = (damage) => {
-    if(pcHP - damage/4 < 0){
+    if(pcHP - damage < 0){
         setPcHP(pcHP => 0);
         return;
     }
-    setPcHP(pcHP => pcHP - damage/4);
+    setPcHP(pcHP => pcHP - damage);
 };
 
 const pcAttack = (damage) => {
-    if(myHP- damage/4 < 0){
+    if(myHP- damage < 0){
         setMyHP(myHP => 0);
         return;
     }
-    setMyHP(myHP => myHP - damage/4);
+    setMyHP(myHP => myHP - damage);
 };
 
 const GameWon = () => (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-[110] flex flex-col items-center justify-center">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-white border-4 border-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-110 flex flex-col items-center justify-center">
         <h1 className="font-black italic text-green-600 text-xl uppercase tracking-tighter">
             You Won!
         </h1>
@@ -42,7 +42,7 @@ const GameWon = () => (
 );
 
 const GameLost = () => (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-black border-4 border-white p-4 shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] z-[110] flex flex-col items-center justify-center">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-24 bg-black border-4 border-white p-4 shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] z-110 flex flex-col items-center justify-center">
         <h1 className="font-black italic text-red-500 text-xl uppercase tracking-tighter">
             Game Over
         </h1>
@@ -51,7 +51,7 @@ const GameLost = () => (
 );
 
 const handleTurn = (myDamage) => {
-    const remainingPcHp = pcHP - myDamage/4;
+    const remainingPcHp = pcHP - myDamage;
     
     if(myHP === 0 | pcHP === 0){
         return;
@@ -73,7 +73,7 @@ const handleTurn = (myDamage) => {
  return (
     <>
     {/* Añadí z-[100] aquí para que la pantalla completa mande sobre los Joy-Cons */}
-    <div className="w-[450px] h-[200px] -mt-80 border-y-4 border-solid relative overflow-hidden bg-white z-[100]">
+    <div className="w-112.5  h-50 -mt-80 border-y-4 border-solid relative overflow-hidden bg-white z-100">
         
         <div className="absolute top-2 left-4 h-9 w-40 bg-gray-100 border-2 border-black p-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)] z-10 flex flex-col justify-between">
             <div className="flex justify-between items-start leading-none">
